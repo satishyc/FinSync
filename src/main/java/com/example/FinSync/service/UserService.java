@@ -11,21 +11,18 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    public User registerUser(User user) {
+    public void registerUser(User user) {
         if(userRepository.findByUserName(user.getUserName())!=null){
             throw new ValidationException("User Name "+user.getUserName()+" which is already in use please try different " +
                     "userName");
         }
-        return userRepository.save(user);
+        userRepository.save(user);
     }
     public boolean isItValidUser(SignIn signIn){
         User user = userRepository.findByUserName(signIn.getUserName());
         if(user==null){
             return false;
         }
-        if(user.getUserName().equals(signIn.getUserName()) && user.getPassword().equals(signIn.getPassword())){
-            return true;
-        }
-        return false;
+        return user.getUserName().equals(signIn.getUserName()) && user.getPassword().equals(signIn.getPassword());
     }
 }
