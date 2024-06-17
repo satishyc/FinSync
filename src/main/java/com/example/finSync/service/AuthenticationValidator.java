@@ -1,7 +1,7 @@
-package com.example.FinSync.service;
+package com.example.finSync.service;
 
-import com.example.FinSync.entity.SignIn;
-import com.example.FinSync.entity.Signup;
+import com.example.finSync.entity.SignIn;
+import com.example.finSync.entity.Signup;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -25,7 +25,7 @@ public class AuthenticationValidator {
             ObjectMapper objectMapper = new ObjectMapper();
             signup = objectMapper.readValue(signupData, Signup.class);
         }catch (Exception e){
-            logger.error("Encountering an exception during the parsing of Signup data, Exception Details {}",e);
+            logger.error("Encountering an exception during the parsing of Signup data, Exception Details : "+e);
             throw new IllegalArgumentException("Verify that the input JSON data does not adhere to the expected JSON format.");
         }
         validateViolations(signup);
@@ -41,7 +41,7 @@ public class AuthenticationValidator {
             signIn = objectMapper.readValue(signInDetails, SignIn.class);
 
         } catch (Exception e){
-            logger.error("Encountering an exception during the parsing of Login data, Exception Details {}",e);
+            logger.error("Encountering an exception during the parsing of Login data, Exception Details : ",e);
             throw new IllegalArgumentException("Verify that the input JSON data does not adhere to the expected JSON format.");
         }
 

@@ -1,6 +1,6 @@
-package com.example.FinSync.entity;
+package com.example.finSync.entity;
 
-import com.example.FinSync.Util.PasswordEncryptor;
+import com.example.finSync.util.PasswordEncryptor;
 import jakarta.persistence.Convert;
 
 public class SignIn {

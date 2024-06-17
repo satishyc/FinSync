@@ -1,4 +1,4 @@
-package com.example.FinSync;
+package com.example.finSync;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

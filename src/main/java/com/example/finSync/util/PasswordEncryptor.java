@@ -1,4 +1,4 @@
-package com.example.FinSync.Util;
+package com.example.finSync.util;
 
 import org.jasypt.util.text.BasicTextEncryptor;
 

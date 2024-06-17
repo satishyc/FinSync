@@ -1,8 +1,7 @@
-package com.example.FinSync.entity;
+package com.example.finSync.entity;
 
-import com.example.FinSync.Util.PasswordEncryptor;
+import com.example.finSync.util.PasswordEncryptor;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnTransformer;
 
 
 @Entity
@@ -59,7 +58,5 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 }

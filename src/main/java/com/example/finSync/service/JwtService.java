@@ -1,6 +1,6 @@
-package com.example.FinSync.service;
+package com.example.finSync.service;
 
-import com.example.FinSync.entity.User;
+import com.example.finSync.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;

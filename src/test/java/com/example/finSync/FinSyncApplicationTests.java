@@ -1,4 +1,4 @@
-package com.example.FinSync;
+package com.example.finSync;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
