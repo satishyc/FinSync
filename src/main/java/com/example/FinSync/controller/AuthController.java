@@ -4,6 +4,7 @@ import com.example.FinSync.entity.SignIn;
 import com.example.FinSync.entity.User;
 import com.example.FinSync.entity.Signup;
 import com.example.FinSync.service.AuthenticationValidator;
+import com.example.FinSync.service.JwtService;
 import com.example.FinSync.service.UserService;
 import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
@@ -25,6 +26,9 @@ public class AuthController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtService jwtService;
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/signup")
@@ -39,7 +43,8 @@ public class AuthController {
     public ResponseEntity<String> handleLogin(@RequestBody String requestBody){
         SignIn signIn = authenticationValidator.validateSignInDetails(requestBody);
         if(userService.isItValidUser(signIn)){
-            return new ResponseEntity<>("User Logged In Successfully", HttpStatus.OK);
+            String jwtToken = jwtService.generateToken(userService.getUserDetails(signIn));
+            return new ResponseEntity<>("Token = "+jwtToken, HttpStatus.OK);
         }
         return new ResponseEntity<>("Invalid Login Details", HttpStatus.BAD_REQUEST);
     }

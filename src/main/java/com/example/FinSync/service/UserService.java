@@ -25,4 +25,7 @@ public class UserService {
         }
         return user.getUserName().equals(signIn.getUserName()) && user.getPassword().equals(signIn.getPassword());
     }
+    public User getUserDetails(SignIn signIn){
+        return userRepository.findByUserName(signIn.getUserName());
+    }
 }
