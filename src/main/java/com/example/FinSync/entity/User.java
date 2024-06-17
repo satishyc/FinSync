@@ -1,23 +1,27 @@
 package com.example.FinSync.entity;
 
+import com.example.FinSync.Util.PasswordEncryptor;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.ColumnTransformer;
+
 
 @Entity
 @Table(name = "users")
 public class User {
-    @EmbeddedId
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
 
     @Column(name="user_name",nullable = false)
     private String userName;
 
-    @Column(name="email",nullable = false, unique = true)
+    @Column(name="email",nullable = false)
     private String email;
 
+
     @Column(name="password",nullable = false)
+    @Convert(converter = PasswordEncryptor.class)
     private String password;
 
     public User() {}
