@@ -1,4 +1,4 @@
-package com.example.finSync.entity;
+package com.example.finSync.entity.authentication;
 
 import com.example.finSync.util.PasswordEncryptor;
 import jakarta.persistence.Convert;

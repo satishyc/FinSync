@@ -1,4 +1,4 @@
-package com.example.finSync.entity;
+package com.example.finSync.entity.authentication;
 
 
 import jakarta.validation.constraints.Email;

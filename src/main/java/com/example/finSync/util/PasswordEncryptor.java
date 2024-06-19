@@ -12,7 +12,7 @@ public class PasswordEncryptor implements AttributeConverter<String, String> {
 
     public PasswordEncryptor() {
         textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPasswordCharArray("your-secret-key".toCharArray()); // Use a secure way to manage this key
+        textEncryptor.setPasswordCharArray("${security.jwt.secret-key}".toCharArray()); // Use a secure way to manage this key
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.example.finSync.service;
 
-import com.example.finSync.entity.SignIn;
-import com.example.finSync.entity.Signup;
+import com.example.finSync.entity.authentication.SignIn;
+import com.example.finSync.entity.authentication.Signup;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

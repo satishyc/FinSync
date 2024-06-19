@@ -1,8 +1,9 @@
 package com.example.finSync.controller;
 
-import com.example.finSync.entity.SignIn;
+import com.example.finSync.entity.authentication.SignIn;
+import com.example.finSync.entity.authentication.SignInResponse;
 import com.example.finSync.entity.User;
-import com.example.finSync.entity.Signup;
+import com.example.finSync.entity.authentication.Signup;
 import com.example.finSync.service.AuthenticationValidator;
 import com.example.finSync.service.JwtService;
 import com.example.finSync.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,10 +49,12 @@ public class AuthController {
     /** @noinspection unused*/
     @PostMapping("/login")
     public ResponseEntity<String> handleLogin(@RequestBody String requestBody){
+        SignInResponse response = new SignInResponse();
         SignIn signIn = authenticationValidator.validateSignInDetails(requestBody);
         if(userService.isItValidUser(signIn)){
             String jwtToken = jwtService.generateToken(userService.getUserDetails(signIn));
-            return new ResponseEntity<>("Token = "+jwtToken, HttpStatus.OK);
+            response.setToken(jwtToken);
+            return new ResponseEntity<>(response.toString(), HttpStatus.OK);
         }
         return new ResponseEntity<>("Invalid Login Details", HttpStatus.BAD_REQUEST);
     }
