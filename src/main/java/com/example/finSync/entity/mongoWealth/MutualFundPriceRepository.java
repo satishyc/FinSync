@@ -8,6 +8,5 @@ public interface MutualFundPriceRepository extends MongoRepository<MutualFundPri
     @Override
     List<MutualFundPrice> findAll();
 
-    @Override
-    void deleteAll();
+
 }

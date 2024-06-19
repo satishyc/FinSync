@@ -19,7 +19,7 @@ public class CacheService {
     private CacheManager cacheManager;
 
     @CacheEvict(value = {"bankDetails","mutualFund","stock"}, allEntries = true)
-    @Scheduled(fixedRate = 3600000 ) // Run every 60 seconds
+    @Scheduled(fixedRate = 60000 ) // Run every 60 seconds
     public void evictAllCacheValues() {
         // This will clear the cache, causing the next request to reload the data
         logger.info("Executing cache eviction task...");

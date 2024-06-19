@@ -19,6 +19,7 @@ public class WealthService {
     public List<BankDetails> getAllBankDetails() {
         return bankDetailsRepository.findAll();
     }
+
     @Cacheable("mutualFund")
     public List<MutualFundPrice> getAllMutualFundPrices() {
         return mutualFundPriceRepository.findAll();
@@ -27,4 +28,6 @@ public class WealthService {
     public List<StockPrice> getAllStockPrices() {
         return stockPriceRepository.findAll();
     }
+
+
 }
