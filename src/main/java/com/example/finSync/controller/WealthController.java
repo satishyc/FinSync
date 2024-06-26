@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -27,21 +28,13 @@ public class WealthController {
     }
     @GetMapping("/mutualFundNames")
     public List<String> getMutualFundDetails() {
-        List<String> mfNames = new ArrayList<>();
-        List<MutualFundPrice> list = wealthService.getAllMutualFundPrices();
-        for(MutualFundPrice mf : list){
-            mfNames.add(mf.getName());
-        }
-        return mfNames;
+        return wealthService.getAllMutualFundPrices().keySet().stream().map(Object::toString)
+                .collect(Collectors.toList());
+
     }
     @GetMapping("/stockNames")
     public List<String> getStockPrices() {
-        List<String> stockNames = new ArrayList<>();
-        List<StockPrice> list = wealthService.getAllStockPrices();
-        for(StockPrice price : list){
-            stockNames.add(price.getName());
-        }
-        return stockNames;
+        return wealthService.getAllStockPrices().keySet().stream().map(Object::toString).collect(Collectors.toList());
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {

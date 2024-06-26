@@ -18,6 +18,9 @@ public class UserService {
         }
         userRepository.save(user);
     }
+    public User getUserDetails(String userName){
+        return userRepository.findByUserName(userName);
+    }
     public boolean isItValidUser(SignIn signIn){
         User user = userRepository.findByUserName(signIn.getUserName());
         if(user==null){
