@@ -1,9 +1,6 @@
 package com.example.finSync.entity.protfolio;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class Deposit {
     @NotEmpty(message = "accountNumber cannot be blank")
@@ -11,8 +8,9 @@ public class Deposit {
     private String accountNumber;
     @Pattern(regexp = "FD|RD|Savings", message = "Deposit type must be FD, RD, or Savings")
     private String type;
-    @Min(value = 0, message = "balance must be zero or positive")
-    private Integer amount;
+    @NotNull
+    @Digits(integer = 12, fraction = 2, message = "amount must be zero or positive")
+    private Double amount;
 
     public String getAccountNumber() {
         return accountNumber;
@@ -30,11 +28,11 @@ public class Deposit {
         this.type = type;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

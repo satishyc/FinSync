@@ -22,6 +22,9 @@ public class StockPrice {
         this.created = created;
     }
 
+    public Double getPrice(){
+        return price;
+    }
     public String getName() {
         return name;
     }

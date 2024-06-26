@@ -24,7 +24,9 @@ public class MutualFundPrice {
         this.navDate=navDate;
         this.created=created;
     }
-
+    public Double getNav(){
+        return nav;
+    }
     public String getName() {
         return name;
     }

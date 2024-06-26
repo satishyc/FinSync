@@ -2,6 +2,8 @@ package com.example.finSync.controller;
 
 import com.example.finSync.entity.User;
 import com.example.finSync.entity.UserPortfolio;
+import com.example.finSync.entity.response.UserPortfolioResponse;
+import com.example.finSync.service.UserWealthCalculation;
 import com.example.finSync.service.UserWealthDetailsService;
 import com.example.finSync.service.UserPortfolioValidator;
 import jakarta.validation.ValidationException;
@@ -19,6 +21,8 @@ public class UserWealthController {
     UserPortfolioValidator userPortfolioValidator;
     @Autowired
     UserWealthDetailsService userWealthDetailsService;
+    @Autowired
+    UserWealthCalculation userWealthCalculation;
 
     @PostMapping("/user-portfolio")
     public ResponseEntity<String> handleSignup(@RequestHeader("api-token") String userToken, @RequestBody String requestBody) {
@@ -26,7 +30,8 @@ public class UserWealthController {
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         UserPortfolio userPortfolio = userPortfolioValidator.validateUserPortfolioDetails(requestBody);
         userWealthDetailsService.saveUserWealth(user,userPortfolio);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        UserPortfolioResponse userWealthResponse = userWealthCalculation.getUserWealthResponse(user.getUserName());
+        return new ResponseEntity<>(userWealthResponse.toString(), HttpStatus.OK);
     }
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<String> handleValidationException(ValidationException ex) {
