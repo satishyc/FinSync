@@ -1,8 +1,7 @@
 package com.example.finSync.controller;
 
 import com.example.finSync.entity.mongoWealth.BankDetails;
-import com.example.finSync.entity.mongoWealth.MutualFundPrice;
-import com.example.finSync.entity.mongoWealth.StockPrice;
+
 import com.example.finSync.service.WealthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

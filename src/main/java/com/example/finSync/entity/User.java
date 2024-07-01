@@ -1,7 +1,13 @@
 package com.example.finSync.entity;
 
 import com.example.finSync.util.PasswordEncryptor;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -22,7 +28,6 @@ public class User {
     @Column(name="password",nullable = false)
     @Convert(converter = PasswordEncryptor.class)
     private String password;
-
     public User() {}
     public User( String userName, String email, String password) {
         this.userName = userName;
@@ -53,6 +58,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setPassword(String password){this.password=password;}
 
     public String getPassword() {
         return password;

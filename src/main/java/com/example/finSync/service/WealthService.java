@@ -1,10 +1,16 @@
 package com.example.finSync.service;
 
-import com.example.finSync.entity.mongoWealth.*;
+import com.example.finSync.entity.mongoWealth.BankDetails;
+import com.example.finSync.entity.mongoWealth.BankDetailsRepository;
+import com.example.finSync.entity.mongoWealth.MutualFundPrice;
+import com.example.finSync.entity.mongoWealth.MutualFundPriceRepository;
+import com.example.finSync.entity.mongoWealth.StockPrice;
+import com.example.finSync.entity.mongoWealth.StockPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +48,15 @@ public class WealthService {
         }
 
         return stockPriceMap;
+    }
+    @Cacheable("shortNames")
+    public List<String> getBankShortNames(){
+        List<BankDetails> list = getAllBankDetails();
+        List<String> shortNames = new ArrayList<>();
+        for(BankDetails details : list){
+            shortNames.add(details.getShortName());
+        }
+        return shortNames;
     }
 
 

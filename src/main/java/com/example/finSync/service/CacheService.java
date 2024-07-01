@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CacheService {
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationValidator.class);
+    private static final Logger logger = LoggerFactory.getLogger(CacheService.class);
 
     @Autowired
     private WealthService wealthService;
@@ -28,6 +28,7 @@ public class CacheService {
             cacheManager.getCache("bankDetails").clear();
             cacheManager.getCache("mutualFund").clear();
             cacheManager.getCache("stock").clear();
+            cacheManager.getCache("shortNames").clear();
             logger.info("Cache eviction completed successfully.");
         } catch (Exception e) {
             logger.error("Error occurred during cache eviction: {}", e.getMessage());

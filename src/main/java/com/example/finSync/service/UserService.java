@@ -2,7 +2,7 @@ package com.example.finSync.service;
 
 import com.example.finSync.entity.authentication.SignIn;
 import com.example.finSync.entity.User;
-import com.example.finSync.entity.UserRepository;
+import com.example.finSync.entity.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
