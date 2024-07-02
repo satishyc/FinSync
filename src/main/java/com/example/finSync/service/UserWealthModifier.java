@@ -1,7 +1,5 @@
 package com.example.finSync.service;
 
-import com.example.finSync.controller.UserWealthModifierController;
-import com.example.finSync.entity.UserProtfolio;
 import com.example.finSync.entity.protfolio.*;
 import com.example.finSync.entity.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +10,6 @@ import jakarta.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

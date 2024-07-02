@@ -72,8 +72,8 @@ public class UserWealthCalculation {
     }
     private MutualFund getMutualFundDetails(List<com.example.finSync.entity.protfolio.MutualFund> mutualFunds){
 
-        Double totalInvested = 0.0;
-        Double currentValue = 0.0;
+        double totalInvested = 0.0;
+        double currentValue = 0.0;
         for(com.example.finSync.entity.protfolio.MutualFund mf : mutualFunds){
 
            if(wealthService.getAllMutualFundPrices().get(mf.getName()) !=null) {
@@ -84,8 +84,8 @@ public class UserWealthCalculation {
         return new MutualFund(totalInvested,currentValue,currentValue-totalInvested);
     }
     private Stock getStockDetails(List<com.example.finSync.entity.protfolio.Stock> stocks){
-        Double totalInvested = 0.0;
-        Double currentValue = 0.0;
+        double totalInvested = 0.0;
+        double currentValue = 0.0;
         for(com.example.finSync.entity.protfolio.Stock stock : stocks){
             if(wealthService.getAllStockPrices().get(stock.getName())!=null){
                 totalInvested+=(stock.getPrice().doubleValue()*stock.getQuantity());

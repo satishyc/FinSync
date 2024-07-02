@@ -1,11 +1,8 @@
 package com.example.finSync.controller;
 
 import com.example.finSync.entity.User;
-import com.example.finSync.entity.protfolio.*;
-import com.example.finSync.entity.repository.*;
 import com.example.finSync.service.UserValidator;
 import com.example.finSync.service.UserWealthModifier;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

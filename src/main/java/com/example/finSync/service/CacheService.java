@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class CacheService {
     private static final Logger logger = LoggerFactory.getLogger(CacheService.class);
@@ -25,7 +27,7 @@ public class CacheService {
         logger.info("Executing cache eviction task...");
         try {
             // Perform cache eviction
-            cacheManager.getCache("bankDetails").clear();
+            Objects.requireNonNull(cacheManager.getCache("bankDetails")).clear();
             cacheManager.getCache("mutualFund").clear();
             cacheManager.getCache("stock").clear();
             cacheManager.getCache("shortNames").clear();

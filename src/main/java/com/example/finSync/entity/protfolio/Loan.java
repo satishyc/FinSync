@@ -34,7 +34,7 @@ public class Loan {
     private String accountNumber;
     @Pattern(regexp = "personal|home|car|education|agriculture", message = "Loan type must be personal, home, car, education, or agriculture")
     private String type;
-    @NotNull(message = "oustandingAmount cannot be balnk")
+    @NotNull(message = "outstandingAmount cannot be balnk")
     @Digits(integer = 12, fraction = 2, message = "outstandingAmount must be zero or positive")
     @Column(name="outstanding_amount")
     private BigDecimal outstandingAmount;
