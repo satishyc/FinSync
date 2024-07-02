@@ -24,6 +24,15 @@ public class Signup {
     @Size(min = 8, message = "confirmPassword must be at least 8 characters")
     private String confirmPassword;
 
+    public Signup(String userName, String emailId, String password, String confirmPassword) {
+        this.userName = userName;
+        this.emailId = emailId;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Signup() {
+    }
 
     public String getUserName() {
         return userName;

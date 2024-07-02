@@ -8,6 +8,14 @@ public class SignIn {
     @Convert(converter = PasswordEncryptor.class)
     private String password;
 
+    public SignIn(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public SignIn() {
+    }
+
     public String getUserName() {
         return userName;
     }

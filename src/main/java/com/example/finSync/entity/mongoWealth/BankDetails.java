@@ -4,8 +4,6 @@ package com.example.finSync.entity.mongoWealth;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 @Document(collection = "bankNames")
 public class BankDetails {
     @Id
@@ -15,11 +13,13 @@ public class BankDetails {
     private final String fullName;
 
 
+
     public BankDetails( String shortName,
                         String fullName) {
         this.shortName = shortName;
         this.fullName = fullName;
     }
+
 
     public String getShortName() {
         return shortName;

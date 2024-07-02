@@ -1,0 +1,80 @@
+[{
+  "shortName": "SBI",
+  "fullName": "State Bank of India"
+},
+{
+  "shortName": "PNB",
+  "fullName": "Punjab National Bank"
+},
+{
+  "shortName": "BOB",
+  "fullName": "Bank of Baroda"
+},
+{
+  "shortName": "CNB",
+  "fullName": "Canara Bank"
+},
+{
+  "shortName": "UBI",
+  "fullName": "Union Bank of India"
+},
+{
+  "shortName": "BOI",
+  "fullName": "Bank of India"
+},
+{
+  "shortName": "INB",
+  "fullName": "Indian Bank"
+},
+{
+  "shortName": "CBI",
+  "fullName": "Central Bank of India"
+},
+{
+  "shortName": "UCO",
+  "fullName": "UCO Bank"
+},
+{
+  "shortName": "BOM",
+  "fullName": "Bank of Maharashtra"
+},
+{
+   "shortName": "IOB",
+  "fullName": "Indian Overseas Bank"
+},
+{
+  "shortName": "PSB",
+  "fullName": "Punjab & Sind Bank"
+},
+{
+  "shortName": "IDBI",
+  "fullName": "Industrial Development Bank of India"
+},
+{
+  "shortName": "ICICI",
+  "fullName": "Industrial Credit and Investment Corporation of India Bank"
+},
+{
+  "shortName": "HDFC",
+  "fullName": "Housing Development Finance Corporation Bank"
+},
+{
+  "shortName": "YES",
+  "fullName": "Yes Bank"
+},
+{
+  "shortName": "AXB",
+  "fullName": "Axis Bank"
+},
+{
+  "shortName": "KMB",
+  "fullName": "Kotak Mahindra Bank"
+},
+{
+  "shortName": "IIB",
+  "fullName": "IndusLand Bank"
+},
+{
+  "shortName": "FDB",
+  "fullName": "Federal Bank"
+}]

@@ -28,7 +28,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteAccount(user.getUserId(), requestBody);
-        return new ResponseEntity<>("request saved successfully", HttpStatus.OK);
+        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-deposit")
     public ResponseEntity<String> updateDeposit(@RequestHeader("api-token") String userToken,
@@ -36,7 +36,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteDeposit(user.getUserId(), requestBody);
-        return new ResponseEntity<>("request saved successfully", HttpStatus.OK);
+        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-loan")
     public ResponseEntity<String> updateLoan(@RequestHeader("api-token") String userToken,
@@ -44,7 +44,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteLoan(user.getUserId(), requestBody);
-        return new ResponseEntity<>("request saved successfully", HttpStatus.OK);
+        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-mutualFund")
     public ResponseEntity<String> updateMutualFund(@RequestHeader("api-token") String userToken,
@@ -52,7 +52,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteMutualFund(user.getUserId(), requestBody);
-        return new ResponseEntity<>("request saved successfully", HttpStatus.OK);
+        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-stocks")
     public ResponseEntity<String> updateStocks(@RequestHeader("api-token") String userToken,
@@ -60,7 +60,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteStock(user.getUserId(), requestBody);
-        return new ResponseEntity<>("request saved successfully", HttpStatus.OK);
+        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
     }
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<String> handleValidationException(ValidationException ex) {
