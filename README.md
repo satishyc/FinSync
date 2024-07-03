@@ -67,7 +67,7 @@ The API response provides a summary of the user's financial status, including sa
 
 ### Technology Stack
 - **Backend**: Spring Boot
-- **Data Aggregation**: JSON-based API request handling
+- **Data Aggregation**: JSON-based API request handling.
 - **Response Calculation**: Real-time computation of financial metrics
 
 The FinSync project aims to simplify financial management by providing users with a detailed and holistic view of their financial landscape, enabling better decision-making and financial planning. 
