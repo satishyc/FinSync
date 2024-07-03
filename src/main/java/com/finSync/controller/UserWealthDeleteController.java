@@ -36,7 +36,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteAccount(user.getUserId(), account);
-        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
+        return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-deposit")
     @Operation(summary = "Remove deposit data from records", description = "it will delete deposit record, " +
@@ -49,7 +49,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteDeposit(user.getUserId(), deposit);
-        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
+        return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-loan")
     @Operation(summary = "Remove loan data from records", description = "it will delete loan record, " +
@@ -62,7 +62,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteLoan(user.getUserId(), loan);
-        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
+        return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-mutualFund")
     @Operation(summary = "Remove mutualFund data from records", description = "it will delete mutualFund record, " +
@@ -75,7 +75,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteMutualFund(user.getUserId(), mutualFund);
-        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
+        return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-stocks")
     @Operation(summary = "Remove stocks data from records", description = "it will delete stocks record, " +
@@ -88,7 +88,7 @@ public class UserWealthDeleteController {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userWealthDelete.deleteStock(user.getUserId(), stock);
-        return new ResponseEntity<>("given record sucessfully removed", HttpStatus.OK);
+        return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<String> handleValidationException(ValidationException ex) {

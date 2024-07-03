@@ -14,12 +14,10 @@ public class StockPrice {
 
     private final String name;
     private final Double price;
-    private final Date created;
 
     public StockPrice(String name, Double price,Date created) {
         this.name = name;
         this.price = price;
-        this.created = created;
     }
 
     public Double getPrice(){

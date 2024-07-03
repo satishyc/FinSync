@@ -1,7 +1,7 @@
 package com.finSync.controller;
 
 import com.finSync.entity.User;
-import com.finSync.entity.UserProtfolio;
+import com.finSync.entity.UserPortfolio;
 import com.finSync.entity.protfolio.*;
 import com.finSync.entity.repository.*;
 import com.finSync.entity.response.UserPortfolioResponse;
@@ -45,13 +45,13 @@ public class UserWealthController {
     @ApiResponse(responseCode = "200", description = "User Records Added Successfully")
     @ApiResponse(responseCode = "400", description = "Invalid input",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
     @ApiResponse(responseCode = "500",description = "Internal Sever Error",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
-    public UserPortfolioResponse handleUserPortfolio(@RequestHeader("api-token") String userToken, @RequestBody UserProtfolio userPortfolio) {
+    public UserPortfolioResponse handleUserPortfolio(@RequestHeader("api-token") String userToken, @RequestBody UserPortfolio userPortfolio) {
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         userPortfolioValidator.validateUserPortfolioDetails(user,userPortfolio);
         userPortfolioService.saveUserWealth(user,userPortfolio);
-        UserPortfolioResponse userWealthResponse = userWealthCalculation.getUserWealthResponse(user.getUserName());
-        return userWealthResponse;
+        return userWealthCalculation.getUserWealthResponse(user.getUserName());
+
     }
     @GetMapping("/get-user-wealth")
     @Operation(summary = "Get user Wealth", description = "Returns Summary of User Wealth")
@@ -61,8 +61,8 @@ public class UserWealthController {
     public UserPortfolioResponse getCurrentWealth(@RequestHeader("api-token")String userToken){
         String token = userToken.replace("Bearer","");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        UserPortfolioResponse userWealthResponse = userWealthCalculation.getUserWealthResponse(user.getUserName());
-        return userWealthResponse;
+        return  userWealthCalculation.getUserWealthResponse(user.getUserName());
+
     }
 
     @GetMapping("/user-data")
@@ -70,10 +70,10 @@ public class UserWealthController {
     @ApiResponse(responseCode = "200", description = "Returns all user data")
     @ApiResponse(responseCode = "400", description = "Invalid input",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
     @ApiResponse(responseCode = "500",description = "Internal Sever Error",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
-    public UserProtfolio getListOfData(@RequestHeader("api-token")String userToken){
+    public UserPortfolio getListOfData(@RequestHeader("api-token")String userToken){
         String token = userToken.replace("Bearer","");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        UserProtfolio portfolio = new UserProtfolio();
+        UserPortfolio portfolio = new UserPortfolio();
         portfolio.setAccounts(accountRepository.findByUserIdAndDeletedFlag(user.getUserId(), false).stream().
                 map(account ->
                         new Account(

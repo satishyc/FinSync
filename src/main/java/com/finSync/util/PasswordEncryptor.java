@@ -1,9 +1,8 @@
 package com.finSync.util;
 
-import org.jasypt.util.text.BasicTextEncryptor;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 @Converter
 public class PasswordEncryptor implements AttributeConverter<String, String> {

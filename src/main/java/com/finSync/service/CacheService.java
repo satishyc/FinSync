@@ -28,9 +28,9 @@ public class CacheService {
         try {
             // Perform cache eviction
             Objects.requireNonNull(cacheManager.getCache("bankDetails")).clear();
-            cacheManager.getCache("mutualFund").clear();
-            cacheManager.getCache("stock").clear();
-            cacheManager.getCache("shortNames").clear();
+            Objects.requireNonNull(cacheManager.getCache("mutualFund")).clear();
+            Objects.requireNonNull(cacheManager.getCache("stock")).clear();
+            Objects.requireNonNull(cacheManager.getCache("shortNames")).clear();
             logger.info("Cache eviction completed successfully.");
         } catch (Exception e) {
             logger.error("Error occurred during cache eviction: {}", e.getMessage());

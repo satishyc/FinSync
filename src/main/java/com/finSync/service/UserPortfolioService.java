@@ -1,17 +1,9 @@
 package com.finSync.service;
 
 import com.finSync.entity.User;
-import com.finSync.entity.UserProtfolio;
-import com.finSync.entity.protfolio.Account;
-import com.finSync.entity.protfolio.Deposit;
-import com.finSync.entity.protfolio.Loan;
-import com.finSync.entity.protfolio.MutualFund;
-import com.finSync.entity.protfolio.Stock;
-import com.finSync.entity.repository.AccountRepository;
-import com.finSync.entity.repository.DepositRepository;
-import com.finSync.entity.repository.LoanRepository;
-import com.finSync.entity.repository.MutualFundRepository;
-import com.finSync.entity.repository.StockRepository;
+import com.finSync.entity.UserPortfolio;
+import com.finSync.entity.protfolio.*;
+import com.finSync.entity.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +23,12 @@ public class UserPortfolioService {
     StockRepository stockRepository;
 
 
-    public void saveUserWealth(User user, UserProtfolio userProtfolio){
-        saveAccounts(user,userProtfolio.getAccounts());
-        saveDeposits(user,userProtfolio.getDeposits());
-        saveLoans(user,userProtfolio.getLoans());
-        saveMutualFunds(user,userProtfolio.getMutualFunds());
-        saveStocks(user,userProtfolio.getStocks());
+    public void saveUserWealth(User user, UserPortfolio userPortfolio){
+        saveAccounts(user, userPortfolio.getAccounts());
+        saveDeposits(user, userPortfolio.getDeposits());
+        saveLoans(user, userPortfolio.getLoans());
+        saveMutualFunds(user, userPortfolio.getMutualFunds());
+        saveStocks(user, userPortfolio.getStocks());
     }
     private void saveAccounts(User user, List<Account> accountList){
         List<Account> records = accountRepository.findByUserIdAndDeletedFlag(user.getUserId(),false);

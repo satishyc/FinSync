@@ -2,9 +2,6 @@ package com.finSync.service;
 
 import com.finSync.entity.protfolio.*;
 import com.finSync.entity.repository.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.finSync.entity.protfolio.*;
-import com.finSync.entity.repository.*;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidationException;

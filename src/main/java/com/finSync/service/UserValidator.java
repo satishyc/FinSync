@@ -1,14 +1,9 @@
 package com.finSync.service;
 
 import com.finSync.entity.User;
-import com.finSync.entity.UserProtfolio;
-import com.finSync.entity.protfolio.Account;
-import com.finSync.entity.protfolio.Deposit;
-import com.finSync.entity.protfolio.Loan;
-import com.finSync.entity.protfolio.MutualFund;
-import com.finSync.entity.protfolio.Stock;
+import com.finSync.entity.UserPortfolio;
+import com.finSync.entity.protfolio.*;
 import com.finSync.entity.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.ValidationException;
@@ -50,17 +45,17 @@ public class UserValidator {
         return user;
 
     }
-    public void validateUserPortfolioDetails(User user,UserProtfolio userProtfolio){
-        validateViolations(userProtfolio);
-        validateBankMfAndStockNames(userProtfolio);
-        mapUserIdsToAccounts(user.getUserId(), userProtfolio);
+    public void validateUserPortfolioDetails(User user, UserPortfolio userPortfolio){
+        validateViolations(userPortfolio);
+        validateBankMfAndStockNames(userPortfolio);
+        mapUserIdsToAccounts(user.getUserId(), userPortfolio);
 
     }
 
-    private void validateViolations(UserProtfolio user){
-        Set<ConstraintViolation<UserProtfolio>> violations = validator.validate(user);
+    private void validateViolations(UserPortfolio user){
+        Set<ConstraintViolation<UserPortfolio>> violations = validator.validate(user);
         if (!violations.isEmpty()) {
-            for (ConstraintViolation<UserProtfolio> violation : violations) {
+            for (ConstraintViolation<UserPortfolio> violation : violations) {
                 logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
                 throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
             }
@@ -68,7 +63,7 @@ public class UserValidator {
         }
 
     }
-    private void validateBankMfAndStockNames(UserProtfolio user){
+    private void validateBankMfAndStockNames(UserPortfolio user){
 
         List<Account> accounts = user.getAccounts();
         for(int i=0;i< accounts.size();i++){
@@ -108,18 +103,18 @@ public class UserValidator {
 
         List<Stock> stocks = user.getStocks();
         for(int i=0;i<stocks.size();i++){
-            if(!wealthService.getAllStockPrices().keySet().contains(stocks.get(i).getName())){
+            if(!wealthService.getAllStockPrices().containsKey(stocks.get(i).getName())){
                 throw new ValidationException("Stock["+i+"].name is invalid "+stocks.get(i).getName());
             }
         }
         List<MutualFund> mutualFunds = user.getMutualFunds();
         for(int i=0;i< mutualFunds.size();i++){
-            if(!wealthService.getAllMutualFundPrices().keySet().contains(mutualFunds.get(i).getName())){
+            if(!wealthService.getAllMutualFundPrices().containsKey(mutualFunds.get(i).getName())){
                 throw new ValidationException("MutualFund["+i+"].name is invalid "+mutualFunds.get(i).getName());
             }
         }
     }
-    private void mapUserIdsToAccounts(Long userId,UserProtfolio userPortfolio){
+    private void mapUserIdsToAccounts(Long userId, UserPortfolio userPortfolio){
         if (userPortfolio.getAccounts() != null) {
             for (Account account : userPortfolio.getAccounts()) {
                 account.setUserId(userId);

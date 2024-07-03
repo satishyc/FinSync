@@ -1,32 +1,33 @@
 package com.finSync.entity.authentication;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import io.swagger.v3.oas.annotations.media.Schema;
 
-
+@Schema(description = "Signup model", requiredProperties = {"userName","emailId","password","confirmPassword"})
 public class Signup {
 
+    /** @noinspection SpellCheckingInspection*/
     @NotEmpty(message = "Username cannot be blank")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    @Schema(description = "Username of the new user", example = "vivekkb", required = true)
+    @Schema(description = "Username of the new user", example = "vivekkb")
     private String userName;
 
     @NotNull
     @Email(message = "Please provide valid email ID")
-    @Schema(description = "Email ID of the new user", example = "vivekkb@gmail.com", required = true)
+    @Schema(description = "Email ID of the new user", example = "vivekkb@gmail.com")
     private String emailId;
     @NotEmpty(message = "Password cannot be blank")
     @Size(min = 8, message = "Password must be at least 8 characters")
-    @Schema(description = "Password for the new user", example = "12345678", required = true)
+    @Schema(description = "Password for the new user", example = "12345678")
     private String password;
 
     @NotEmpty(message = "confirmPassword cannot be blank")
     @Size(min = 8, message = "confirmPassword must be at least 8 characters")
-    @Schema(description = "Confirmation of the password", example = "12345678", required = true)
+    @Schema(description = "Confirmation of the password", example = "12345678")
     private String confirmPassword;
 
     public Signup(String userName, String emailId, String password, String confirmPassword) {

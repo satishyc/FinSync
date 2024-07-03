@@ -1,7 +1,6 @@
 package com.finSync.controller;
 
 import com.finSync.entity.mongoWealth.BankDetails;
-
 import com.finSync.service.WealthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

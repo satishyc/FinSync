@@ -4,17 +4,8 @@ package com.finSync.entity.protfolio;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -36,7 +27,7 @@ public class Loan {
     private String accountNumber;
     @Pattern(regexp = "personal|home|car|education|agriculture", message = "Loan type must be personal, home, car, education, or agriculture")
     private String type;
-    @NotNull(message = "outstandingAmount cannot be balnk")
+    @NotNull(message = "outstandingAmount cannot be blank")
     @Digits(integer = 12, fraction = 2, message = "outstandingAmount must be zero or positive")
     @Column(name="outstanding_amount")
     private BigDecimal outstandingAmount;

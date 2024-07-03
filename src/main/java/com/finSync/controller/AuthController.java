@@ -1,8 +1,8 @@
 package com.finSync.controller;
 
+import com.finSync.entity.User;
 import com.finSync.entity.authentication.SignIn;
 import com.finSync.entity.authentication.SignInResponse;
-import com.finSync.entity.User;
 import com.finSync.entity.authentication.Signup;
 import com.finSync.service.AuthenticationValidator;
 import com.finSync.service.JwtService;
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Objects;
 
 /** @noinspection unused*/
 @RestController

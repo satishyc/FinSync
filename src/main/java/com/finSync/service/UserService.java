@@ -1,7 +1,7 @@
 package com.finSync.service;
 
-import com.finSync.entity.authentication.SignIn;
 import com.finSync.entity.User;
+import com.finSync.entity.authentication.SignIn;
 import com.finSync.entity.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;

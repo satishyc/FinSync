@@ -1,11 +1,6 @@
 package com.finSync.service;
 
-import com.finSync.entity.mongoWealth.BankDetails;
-import com.finSync.entity.mongoWealth.BankDetailsRepository;
-import com.finSync.entity.mongoWealth.MutualFundPrice;
-import com.finSync.entity.mongoWealth.MutualFundPriceRepository;
-import com.finSync.entity.mongoWealth.StockPrice;
-import com.finSync.entity.mongoWealth.StockPriceRepository;
+import com.finSync.entity.mongoWealth.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

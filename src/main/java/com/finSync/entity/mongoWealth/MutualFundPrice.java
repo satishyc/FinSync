@@ -14,15 +14,10 @@ public class MutualFundPrice {
 
     private final String name;
     private final Double nav;
-    private final String navDate;
-
-    private final Date created;
 
     public MutualFundPrice(String name, Double nav,String navDate,Date created) {
         this.name = name;
         this.nav = nav;
-        this.navDate=navDate;
-        this.created=created;
     }
     public Double getNav(){
         return nav;

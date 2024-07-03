@@ -1,18 +1,14 @@
 package com.finSync.entity;
 
-import com.finSync.entity.protfolio.Account;
-import com.finSync.entity.protfolio.Deposit;
-import com.finSync.entity.protfolio.Loan;
-import com.finSync.entity.protfolio.MutualFund;
-import com.finSync.entity.protfolio.Stock;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.finSync.entity.protfolio.*;
 import jakarta.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProtfolio {
+public class UserPortfolio {
     @Valid
     private List<Account> accounts = new ArrayList<>();
 
