@@ -3,12 +3,13 @@ package com.finSync.entity.response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class UserPortfolioResponse {
     private Double totalSavingsInBank;
     private Double totalSavingsInDeposit;
     private Double totalLoanAmountPending;
-    private MutualFund mutualFunds;
-    private Stock stocks;
+    private MutualFundResponse mutualFundsResponse;
+    private StockResponse stocks;
     private Double totalNetWorth;
 
     public Double getTotalSavingsInBank() {
@@ -35,19 +36,19 @@ public class UserPortfolioResponse {
         this.totalLoanAmountPending = totalLoanAmountPending;
     }
 
-    public MutualFund getMutualFund() {
-        return mutualFunds;
+    public MutualFundResponse getMutualFund() {
+        return mutualFundsResponse;
     }
 
-    public void setMutualFund(MutualFund mutualFunds) {
-        this.mutualFunds = mutualFunds;
+    public void setMutualFund(MutualFundResponse mutualFundsResponse) {
+        this.mutualFundsResponse = mutualFundsResponse;
     }
 
-    public Stock getStock() {
+    public StockResponse getStock() {
         return stocks;
     }
 
-    public void setStock(Stock stocks) {
+    public void setStock(StockResponse stocks) {
         this.stocks = stocks;
     }
 

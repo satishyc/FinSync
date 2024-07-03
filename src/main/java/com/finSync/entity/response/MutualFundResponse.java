@@ -2,12 +2,12 @@ package com.finSync.entity.response;
 
 
 
-public class MutualFund {
+public class MutualFundResponse {
     private Double totalInvested;
     private Double currentValue;
     private Double gain;
 
-    public MutualFund(Double totalInvested, Double currentValue, Double gain) {
+    public MutualFundResponse(Double totalInvested, Double currentValue, Double gain) {
         this.totalInvested = totalInvested;
         this.currentValue = currentValue;
         this.gain = gain;

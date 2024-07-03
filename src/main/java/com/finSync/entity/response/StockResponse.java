@@ -2,7 +2,7 @@ package com.finSync.entity.response;
 
 
 
-public class Stock {
+public class StockResponse {
     private Double totalInvested;
     private Double currentValue;
     private Double gain;
@@ -31,7 +31,7 @@ public class Stock {
         this.gain = gain;
     }
 
-    public Stock(Double totalInvested, Double currentValue, Double gain) {
+    public StockResponse(Double totalInvested, Double currentValue, Double gain) {
         this.totalInvested = totalInvested;
         this.currentValue = currentValue;
         this.gain = gain;
