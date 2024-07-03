@@ -2,10 +2,16 @@ package com.finSync.entity.response;
 
 
 
-public class Stock {
+public class MutualFundResponse {
     private Double totalInvested;
     private Double currentValue;
     private Double gain;
+
+    public MutualFundResponse(Double totalInvested, Double currentValue, Double gain) {
+        this.totalInvested = totalInvested;
+        this.currentValue = currentValue;
+        this.gain = gain;
+    }
 
     public Double getTotalInvested() {
         return totalInvested;
@@ -31,10 +37,5 @@ public class Stock {
         this.gain = gain;
     }
 
-    public Stock(Double totalInvested, Double currentValue, Double gain) {
-        this.totalInvested = totalInvested;
-        this.currentValue = currentValue;
-        this.gain = gain;
-    }
 
 }

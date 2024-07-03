@@ -10,8 +10,8 @@ import com.finSync.entity.repository.LoanRepository;
 import com.finSync.entity.repository.MutualFundRepository;
 import com.finSync.entity.repository.StockRepository;
 import com.finSync.entity.repository.UserRepository;
-import com.finSync.entity.response.MutualFund;
-import com.finSync.entity.response.Stock;
+import com.finSync.entity.response.MutualFundResponse;
+import com.finSync.entity.response.StockResponse;
 import com.finSync.entity.response.UserPortfolioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,7 +70,7 @@ public class UserWealthCalculation {
         }
         return totalLoanDept.doubleValue();
     }
-    private MutualFund getMutualFundDetails(List<com.finSync.entity.protfolio.MutualFund> mutualFunds){
+    private MutualFundResponse getMutualFundDetails(List<com.finSync.entity.protfolio.MutualFund> mutualFunds){
 
         double totalInvested = 0.0;
         double currentValue = 0.0;
@@ -81,9 +81,9 @@ public class UserWealthCalculation {
                currentValue+=(mf.getUnits()*wealthService.getAllMutualFundPrices().get(mf.getName()).getNav());
            }
         }
-        return new MutualFund(totalInvested,currentValue,currentValue-totalInvested);
+        return new MutualFundResponse(totalInvested,currentValue,currentValue-totalInvested);
     }
-    private Stock getStockDetails(List<com.finSync.entity.protfolio.Stock> stocks){
+    private StockResponse getStockDetails(List<com.finSync.entity.protfolio.Stock> stocks){
         double totalInvested = 0.0;
         double currentValue = 0.0;
         for(com.finSync.entity.protfolio.Stock stock : stocks){
@@ -92,7 +92,7 @@ public class UserWealthCalculation {
                 currentValue+=(wealthService.getAllStockPrices().get(stock.getName()).getPrice()*stock.getQuantity());
             }
         }
-        return new Stock(totalInvested,currentValue,currentValue-totalInvested);
+        return new StockResponse(totalInvested,currentValue,currentValue-totalInvested);
     }
     private Double getTotalNetWorth(UserPortfolioResponse response){
         return (response.getTotalSavingsInBank()+response.getTotalSavingsInDeposit()+response.getStock().getGain()
