@@ -12,9 +12,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     public void registerUser(User user) {
-        if(userRepository.findByUserName(user.getUserName())!=null){
-            throw new ValidationException("User Name "+user.getUserName()+" which is already in use please try different " +
-                    "userName");
+        if (userRepository.findByUserName(user.getUserName()) != null) {
+            throw new ValidationException("User Name " + user.getUserName() + " is already in use. Please try a different userName.");
         }
         userRepository.save(user);
     }
@@ -23,10 +22,10 @@ public class UserService {
     }
     public boolean isItValidUser(SignIn signIn){
         User user = userRepository.findByUserName(signIn.getUserName());
-        if(user==null){
+        if (user == null) {
             return false;
         }
-        return user.getUserName().equals(signIn.getUserName()) && user.getPassword().equals(signIn.getPassword());
+        return user.getPassword().equals(signIn.getPassword());
     }
     public User getUserDetails(SignIn signIn){
         return userRepository.findByUserName(signIn.getUserName());

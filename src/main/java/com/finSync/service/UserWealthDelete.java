@@ -37,7 +37,7 @@ public class UserWealthDelete {
         Account record = accountRepository.findByAccountNumberAndUserIdAndDeletedFlag(account.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Account details not found in records");
         }else{
             record.setDeletedFlag(true);
             accountRepository.save(record);
@@ -48,7 +48,7 @@ public class UserWealthDelete {
         Deposit record = depositRepository.findByAccountNumberAndUserIdAndDeletedFlag(deposit.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Deposit details not found in records");
         }else{
             record.setDeletedFlag(true);
            depositRepository.save(record);
@@ -60,7 +60,7 @@ public class UserWealthDelete {
         Loan record = loanRepository.findByAccountNumberAndUserIdAndDeletedFlag(loan.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Loan details not found in records");
         }else{
             record.setDeletedFlag(true);
             loanRepository.save(record);
@@ -71,7 +71,7 @@ public class UserWealthDelete {
         MutualFund record = mutualFundRepository.findByNameAndUserIdAndDeletedFlag(mutualFund.getName(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("MutualFund details not found in records");
         }else{
             record.setDeletedFlag(true);
             mutualFundRepository.save(record);
@@ -82,40 +82,42 @@ public class UserWealthDelete {
         Stock record = stockRepository.findByNameAndUserIdAndDeletedFlag(stock.getName(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Stock details not found in records");
         }else{
             record.setDeletedFlag(true);
             stockRepository.save(record);
         }
     }
-    private void validateAccountViolations(Account account){
+    private void validateAccountViolations(Account account) {
         Set<ConstraintViolation<Account>> violations = validator.validate(account);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Account> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String errorMessage = String.format("%s: %s", violation.getPropertyPath(), violation.getMessage());
+                logger.error("Details of account validation failure: " + errorMessage);
+                throw new ValidationException(errorMessage);
             }
-
         }
-
     }
     private void validateDepositViolations(Deposit deposit){
         Set<ConstraintViolation<Deposit>> violations = validator.validate(deposit);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Deposit> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String errorMessage = String.format("%s: %s", violation.getPropertyPath(), violation.getMessage());
+                logger.error("Details of deposit validation failure: " + errorMessage);
+                throw new ValidationException(errorMessage);
+            }
             }
 
-        }
-
     }
+
+
     private void validateLoanViolations(Loan loan){
         Set<ConstraintViolation<Loan>> violations = validator.validate(loan);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Loan> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String errorMessage = String.format("%s: %s", violation.getPropertyPath(), violation.getMessage());
+                logger.error("Details of loan validation failure: " + errorMessage);
+                throw new ValidationException(errorMessage);
             }
 
         }
@@ -125,8 +127,9 @@ public class UserWealthDelete {
         Set<ConstraintViolation<MutualFund>> violations = validator.validate(mutualFund);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<MutualFund> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String errorMessage = String.format("%s: %s", violation.getPropertyPath(), violation.getMessage());
+                logger.error("Details of mutualFund validation failure: " + errorMessage);
+                throw new ValidationException(errorMessage);
             }
 
         }
@@ -136,8 +139,9 @@ public class UserWealthDelete {
         Set<ConstraintViolation<Stock>> violations = validator.validate(stock);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Stock> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String errorMessage = String.format("%s: %s", violation.getPropertyPath(), violation.getMessage());
+                logger.error("Details of stock validation failure: " + errorMessage);
+                throw new ValidationException(errorMessage);
             }
 
         }

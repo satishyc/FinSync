@@ -24,16 +24,16 @@ public class AuthenticationValidator {
         }
     }
 
-    private void validateViolations(Signup signup){
+    private void validateViolations(Signup signup) {
         Set<ConstraintViolation<Signup>> violations = validator.validate(signup);
 
         if (!violations.isEmpty()) {
             for (ConstraintViolation<Signup> violation : violations) {
-                logger.error("Details of Signup Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getMessage());
+                String message = violation.getPropertyPath() + ": " + violation.getMessage();
+                logger.error("Details of Signup validation failure: " + message);
+                throw new ValidationException(message);
             }
-
         }
-
     }
+
 }

@@ -4,6 +4,8 @@ import com.finSync.entity.User;
 import com.finSync.entity.protfolio.Account;
 import com.finSync.entity.protfolio.Deposit;
 import com.finSync.entity.protfolio.Loan;
+import com.finSync.entity.protfolio.MutualFund;
+import com.finSync.entity.protfolio.Stock;
 import com.finSync.entity.repository.*;
 import com.finSync.entity.response.MutualFundResponse;
 import com.finSync.entity.response.StockResponse;
@@ -16,82 +18,93 @@ import java.util.List;
 
 @Service
 public class UserWealthCalculation {
-    @Autowired
-    UserRepository repository;
-    @Autowired
-    WealthService wealthService;
-    @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    DepositRepository depositRepository;
-    @Autowired
-    LoanRepository loanRepository;
-    @Autowired
-    MutualFundRepository mutualFundRepository;
-    @Autowired
-    StockRepository stockRepository;
 
-    public UserPortfolioResponse getUserWealthResponse(String userName){
-        UserPortfolioResponse response = new UserPortfolioResponse();
-        User user = repository.findByUserName(userName);
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private WealthService wealthService;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private DepositRepository depositRepository;
+
+    @Autowired
+    private LoanRepository loanRepository;
+
+    @Autowired
+    private MutualFundRepository mutualFundRepository;
+
+    @Autowired
+    private StockRepository stockRepository;
+
+    public UserPortfolioResponse getUserWealthResponse(String userName) {
+        User user = userRepository.findByUserName(userName);
         Long userId = user.getUserId();
-        response.setTotalSavingsInBank(getTotalSavingsBalance(accountRepository.findByUserIdAndDeletedFlag(userId,false)));
-        response.setTotalSavingsInDeposit(getTotalDepositsBalance(depositRepository.findByUserIdAndDeletedFlag(userId,false)));
-        response.setTotalLoanAmountPending(getTotalLoanDept(loanRepository.findByUserIdAndDeletedFlag(userId,false)));
-        response.setMutualFund(getMutualFundDetails(mutualFundRepository.findByUserIdAndDeletedFlag(userId,false)));
-        response.setStock(getStockDetails(stockRepository.findByUserIdAndDeletedFlag(userId,false)));
-        response.setTotalNetWorth(getTotalNetWorth(response));
-        return response;
-    }
-    private Double getTotalSavingsBalance(List<Account> accounts){
-        BigDecimal totalSavings = BigDecimal.valueOf(0.0);
-        for(Account account : accounts){
-            totalSavings= totalSavings.add(account.getBalance());
-        }
-        return totalSavings.doubleValue();
+        List<Account> accounts = accountRepository.findByUserIdAndDeletedFlag(userId, false);
+        List<Deposit> deposits = depositRepository.findByUserIdAndDeletedFlag(userId, false);
+        List<Loan> loans = loanRepository.findByUserIdAndDeletedFlag(userId, false);
+        List<MutualFund> mutualFunds = mutualFundRepository.findByUserIdAndDeletedFlag(userId, false);
+        List<Stock> stocks = stockRepository.findByUserIdAndDeletedFlag(userId, false);
 
-    }
-    private Double getTotalDepositsBalance(List<Deposit> deposits){
-        BigDecimal totalDeposits = BigDecimal.valueOf(0.0);
-        for(Deposit deposit : deposits){
-            totalDeposits=totalDeposits.add(deposit.getAmount());
-        }
-        return totalDeposits.doubleValue();
-    }
-    private Double getTotalLoanDept(List<Loan> loans){
-        BigDecimal totalLoanDept = BigDecimal.valueOf(0.0);
-        for(Loan loan :  loans){
-            totalLoanDept=totalLoanDept.add(loan.getOutstandingAmount());
-        }
-        return totalLoanDept.doubleValue();
-    }
-    private MutualFundResponse getMutualFundDetails(List<com.finSync.entity.protfolio.MutualFund> mutualFunds){
+        Double totalSavingsInBank = getTotalSavingsBalance(accounts);
+        Double totalSavingsInDeposit = getTotalDepositsBalance(deposits);
+        Double totalLoanAmountPending = getTotalLoanDept(loans);
+        MutualFundResponse mutualFundResponse = getMutualFundDetails(mutualFunds);
+        StockResponse stockResponse = getStockDetails(stocks);
+        Double totalNetWorth = getTotalNetWorth(totalSavingsInBank, totalSavingsInDeposit, stockResponse.getGain(), mutualFundResponse.getGain(), totalLoanAmountPending);
 
+        return new UserPortfolioResponse(totalSavingsInBank, totalSavingsInDeposit, totalLoanAmountPending, mutualFundResponse, stockResponse, totalNetWorth);
+    }
+
+    private Double getTotalSavingsBalance(List<Account> accounts) {
+        return accounts.stream()
+                .map(Account::getBalance)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
+    }
+
+    private Double getTotalDepositsBalance(List<Deposit> deposits) {
+        return deposits.stream()
+                .map(Deposit::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
+    }
+
+    private Double getTotalLoanDept(List<Loan> loans) {
+        return loans.stream()
+                .map(Loan::getOutstandingAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
+    }
+
+    private MutualFundResponse getMutualFundDetails(List<MutualFund> mutualFunds) {
         double totalInvested = 0.0;
         double currentValue = 0.0;
-        for(com.finSync.entity.protfolio.MutualFund mf : mutualFunds){
-
-           if(wealthService.getAllMutualFundPrices().get(mf.getName()) !=null) {
-               totalInvested+=(mf.getUnits()*mf.getNav().doubleValue());
-               currentValue+=(mf.getUnits()*wealthService.getAllMutualFundPrices().get(mf.getName()).getNav());
-           }
-        }
-        return new MutualFundResponse(totalInvested,currentValue,currentValue-totalInvested);
-    }
-    private StockResponse getStockDetails(List<com.finSync.entity.protfolio.Stock> stocks){
-        double totalInvested = 0.0;
-        double currentValue = 0.0;
-        for(com.finSync.entity.protfolio.Stock stock : stocks){
-            if(wealthService.getAllStockPrices().get(stock.getName())!=null){
-                totalInvested+=(stock.getPrice().doubleValue()*stock.getQuantity());
-                currentValue+=(wealthService.getAllStockPrices().get(stock.getName()).getPrice()*stock.getQuantity());
+        for (MutualFund mf : mutualFunds) {
+            if (wealthService.getAllMutualFundPrices().containsKey(mf.getName())) {
+                totalInvested += (mf.getUnits() * mf.getNav().doubleValue());
+                currentValue += (mf.getUnits() * wealthService.getAllMutualFundPrices().get(mf.getName()).getNav());
             }
         }
-        return new StockResponse(totalInvested,currentValue,currentValue-totalInvested);
-    }
-    private Double getTotalNetWorth(UserPortfolioResponse response){
-        return (response.getTotalSavingsInBank()+response.getTotalSavingsInDeposit()+response.getStock().getGain()
-                +response.getMutualFund().getGain()- response.getTotalLoanAmountPending());
+        return new MutualFundResponse(totalInvested, currentValue, currentValue - totalInvested);
     }
 
+    private StockResponse getStockDetails(List<Stock> stocks) {
+        double totalInvested = 0.0;
+        double currentValue = 0.0;
+        for (Stock stock : stocks) {
+            if (wealthService.getAllStockPrices().containsKey(stock.getName())) {
+                totalInvested += (stock.getPrice().doubleValue() * stock.getQuantity());
+                currentValue += (wealthService.getAllStockPrices().get(stock.getName()).getPrice() * stock.getQuantity());
+            }
+        }
+        return new StockResponse(totalInvested, currentValue, currentValue - totalInvested);
+    }
+
+    private Double getTotalNetWorth(Double totalSavingsInBank, Double totalSavingsInDeposit, Double stockGain, Double mutualFundGain, Double totalLoanAmountPending) {
+        return totalSavingsInBank + totalSavingsInDeposit + stockGain + mutualFundGain - totalLoanAmountPending;
+    }
 }

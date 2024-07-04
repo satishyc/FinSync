@@ -37,7 +37,7 @@ public class UserWealthModifier {
         Account record = accountRepository.findByAccountNumberAndUserIdAndDeletedFlag(account.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Account details not found in records");
         }else{
             record.setBalance(account.getBalance());
             record.setBankName(account.getBankName());
@@ -50,7 +50,7 @@ public class UserWealthModifier {
         Deposit record = depositRepository.findByAccountNumberAndUserIdAndDeletedFlag(deposit.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Deposit details not found in records");
         }else{
             record.setType(deposit.getType());
             record.setAmount(deposit.getAmount());
@@ -63,7 +63,7 @@ public class UserWealthModifier {
         Loan record = loanRepository.findByAccountNumberAndUserIdAndDeletedFlag(loan.getAccountNumber(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Loan details not found in records");
         }else{
             record.setType(loan.getType());
             record.setOutstandingAmount(loan.getOutstandingAmount());
@@ -76,7 +76,7 @@ public class UserWealthModifier {
         MutualFund record = mutualFundRepository.findByNameAndUserIdAndDeletedFlag(mutualFund.getName(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("MutualFund details not found in records");
         }else{
             record.setNav(mutualFund.getNav());
             record.setUnits(mutualFund.getUnits());
@@ -90,7 +90,7 @@ public class UserWealthModifier {
         Stock record = stockRepository.findByNameAndUserIdAndDeletedFlag(stock.getName(),
                 userId, false);
         if(record==null){
-            throw new ValidationException("given details not found in records");
+            throw new ValidationException("Stock details not found in records");
         }else{
             record.setPrice(stock.getPrice());
             record.setQuantity(stock.getQuantity());

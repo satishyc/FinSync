@@ -3,7 +3,6 @@ package com.finSync.entity.authentication;
 import com.finSync.util.PasswordEncryptor;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Convert;
-/** @noinspection SpellCheckingInspection*/
 @Schema(description = "SignIn model", requiredProperties = {"userName","password"})
 public class SignIn {
     @Schema(description = "Username of the new user", example = "vivekkb")

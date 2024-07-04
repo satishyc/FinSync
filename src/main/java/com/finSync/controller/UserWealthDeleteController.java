@@ -1,18 +1,25 @@
 package com.finSync.controller;
 
 import com.finSync.entity.User;
-import com.finSync.entity.protfolio.*;
+import com.finSync.entity.protfolio.Account;
+import com.finSync.entity.protfolio.Deposit;
+import com.finSync.entity.protfolio.Loan;
+import com.finSync.entity.protfolio.MutualFund;
+import com.finSync.entity.protfolio.Stock;
 import com.finSync.service.UserValidator;
 import com.finSync.service.UserWealthDelete;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.ValidationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class UserWealthDeleteController {
     @Autowired
@@ -22,16 +29,13 @@ public class UserWealthDeleteController {
     UserWealthDelete userWealthDelete;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(UserWealthDeleteController.class);
-
-
     @DeleteMapping("/delete-account")
     @Operation(summary = "Remove account data from records", description = "it will delete Account record, " +
             "if it exists else it will through exception")
     @ApiResponse(responseCode = "200", description = "Account Records Removed Successfully")
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
-    public ResponseEntity<String> updateAccount(@RequestHeader("api-token") String userToken,
+    public ResponseEntity<String> deleteAccount(@RequestHeader("api-token") String userToken,
                                                 @RequestBody Account account){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
@@ -44,7 +48,7 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "200", description = "Deposit Records Removed Successfully")
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
-    public ResponseEntity<String> updateDeposit(@RequestHeader("api-token") String userToken,
+    public ResponseEntity<String> deleteDeposit(@RequestHeader("api-token") String userToken,
                                                 @RequestBody Deposit deposit){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
@@ -57,7 +61,7 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "200", description = "Loan Records Removed Successfully")
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
-    public ResponseEntity<String> updateLoan(@RequestHeader("api-token") String userToken,
+    public ResponseEntity<String> deleteLoan(@RequestHeader("api-token") String userToken,
                                              @RequestBody Loan loan){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
@@ -70,7 +74,7 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "200", description = "MutualFund Records Removed Successfully")
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
-    public ResponseEntity<String> updateMutualFund(@RequestHeader("api-token") String userToken,
+    public ResponseEntity<String> deleteMutualFund(@RequestHeader("api-token") String userToken,
                                                    @RequestBody MutualFund mutualFund){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
@@ -83,7 +87,7 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "200", description = "Stocks Records Removed Successfully")
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
-    public ResponseEntity<String> updateStocks(@RequestHeader("api-token") String userToken,
+    public ResponseEntity<String> deleteStocks(@RequestHeader("api-token") String userToken,
                                                @RequestBody Stock stock){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);

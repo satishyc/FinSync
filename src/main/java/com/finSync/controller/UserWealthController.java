@@ -2,8 +2,16 @@ package com.finSync.controller;
 
 import com.finSync.entity.User;
 import com.finSync.entity.UserPortfolio;
-import com.finSync.entity.protfolio.*;
-import com.finSync.entity.repository.*;
+import com.finSync.entity.protfolio.Account;
+import com.finSync.entity.protfolio.Deposit;
+import com.finSync.entity.protfolio.Loan;
+import com.finSync.entity.protfolio.MutualFund;
+import com.finSync.entity.protfolio.Stock;
+import com.finSync.entity.repository.AccountRepository;
+import com.finSync.entity.repository.DepositRepository;
+import com.finSync.entity.repository.LoanRepository;
+import com.finSync.entity.repository.MutualFundRepository;
+import com.finSync.entity.repository.StockRepository;
 import com.finSync.entity.response.UserPortfolioResponse;
 import com.finSync.service.UserPortfolioService;
 import com.finSync.service.UserValidator;
@@ -14,7 +22,12 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.stream.Collectors;
 
@@ -70,7 +83,7 @@ public class UserWealthController {
     @ApiResponse(responseCode = "200", description = "Returns all user data")
     @ApiResponse(responseCode = "400", description = "Invalid input",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
     @ApiResponse(responseCode = "500",description = "Internal Sever Error",content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "String")})
-    public UserPortfolio getListOfData(@RequestHeader("api-token")String userToken){
+    public UserPortfolio getUserData(@RequestHeader("api-token")String userToken){
         String token = userToken.replace("Bearer","");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
         UserPortfolio portfolio = new UserPortfolio();
@@ -112,7 +125,6 @@ public class UserWealthController {
                                 stock.getQuantity(),
                                 stock.getPrice()))
                 .collect(Collectors.toList()));
-
         return portfolio;
     }
     @ExceptionHandler(ValidationException.class)

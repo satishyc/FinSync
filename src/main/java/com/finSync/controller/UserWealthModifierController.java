@@ -1,18 +1,24 @@
 package com.finSync.controller;
 
 import com.finSync.entity.User;
-import com.finSync.entity.protfolio.*;
+import com.finSync.entity.protfolio.Account;
+import com.finSync.entity.protfolio.Deposit;
+import com.finSync.entity.protfolio.Loan;
+import com.finSync.entity.protfolio.MutualFund;
+import com.finSync.entity.protfolio.Stock;
 import com.finSync.service.UserValidator;
 import com.finSync.service.UserWealthModifier;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.ValidationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserWealthModifierController {
@@ -23,7 +29,6 @@ public class UserWealthModifierController {
     UserWealthModifier userWealthModifier;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(UserWealthModifierController.class);
 
 
     @PutMapping("/update-account")

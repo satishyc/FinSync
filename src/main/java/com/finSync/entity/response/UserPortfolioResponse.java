@@ -12,6 +12,18 @@ public class UserPortfolioResponse {
     private StockResponse stocks;
     private Double totalNetWorth;
 
+    public UserPortfolioResponse() {
+    }
+
+    public UserPortfolioResponse(Double totalSavingsInBank, Double totalSavingsInDeposit, Double totalLoanAmountPending, MutualFundResponse mutualFundsResponse, StockResponse stocks, Double totalNetWorth) {
+        this.totalSavingsInBank = totalSavingsInBank;
+        this.totalSavingsInDeposit = totalSavingsInDeposit;
+        this.totalLoanAmountPending = totalLoanAmountPending;
+        this.mutualFundsResponse = mutualFundsResponse;
+        this.stocks = stocks;
+        this.totalNetWorth = totalNetWorth;
+    }
+
     public Double getTotalSavingsInBank() {
         return totalSavingsInBank;
     }

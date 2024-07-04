@@ -11,8 +11,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.ValidationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/** @noinspection unused*/
 @RestController
 public class AuthController {
 
@@ -31,10 +28,8 @@ public class AuthController {
     @Autowired
     UserService userService;
 
-    /** @noinspection unused*/
     @Autowired
     JwtService jwtService;
-    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     /** @noinspection unused*/
     @PostMapping("/signup")
@@ -47,7 +42,6 @@ public class AuthController {
         userService.registerUser(new User(signup.getUserName(), signup.getEmailId(), signup.getPassword()));
         return new ResponseEntity<>("User Registered Successfully", HttpStatus.OK);
     }
-    /** @noinspection unused*/
     @PostMapping("/login")
     @Operation(summary = "Login with user", description = "Login with already registered details")
     @ApiResponse(responseCode = "200", description = "Login Successful with api-token response", content = {@io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json",
@@ -63,13 +57,11 @@ public class AuthController {
         }
         return new ResponseEntity<>("Invalid Login Details", HttpStatus.BAD_REQUEST);
     }
-    /** @noinspection unused*/
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<String> handleValidationException(ValidationException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    /** @noinspection unused*/
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

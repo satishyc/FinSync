@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Size;
 @Schema(description = "Signup model", requiredProperties = {"userName","emailId","password","confirmPassword"})
 public class Signup {
 
-    /** @noinspection SpellCheckingInspection*/
     @NotEmpty(message = "Username cannot be blank")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @Schema(description = "Username of the new user", example = "vivekkb")

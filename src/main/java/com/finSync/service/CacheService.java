@@ -15,12 +15,9 @@ public class CacheService {
     private static final Logger logger = LoggerFactory.getLogger(CacheService.class);
 
     @Autowired
-    private WealthService wealthService;
-
-    @Autowired
     private CacheManager cacheManager;
 
-    @CacheEvict(value = {"bankDetails","mutualFund","stock"}, allEntries = true)
+    @CacheEvict(value = {"bankDetails","mutualFund","stock","shortNames"}, allEntries = true)
     @Scheduled(fixedRate = 60000 ) // Run every 60 seconds
     public void evictAllCacheValues() {
         // This will clear the cache, causing the next request to reload the data

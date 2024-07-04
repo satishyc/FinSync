@@ -31,18 +31,19 @@ public class UserValidator {
     @Autowired
     private UserRepository userRepository;
     public User validatedTokenAndGetUserDetails(String token){
-        User user;
-        try{
+        try {
             String userName = jwtService.extractUsername(token);
-            user = userRepository.findByUserName(userName);
-            if(!jwtService.isTokenValid(token,user)){
-                throw new ValidationException("Invalid token details please verify or generate new token by sign in again");
+            User user = userRepository.findByUserName(userName);
+
+            if (user == null || !jwtService.isTokenValid(token, user)) {
+                throw new ValidationException("Invalid token details. Please verify or generate a new token by signing in again.");
             }
-        } catch (Exception e){
-            logger.error("Invalid token Exception " +e);
-            throw new ValidationException("Invalid token details please verify or generate new token by sign in again");
+
+            return user;
+        } catch (Exception e) {
+            logger.error("Invalid token exception: ", e);
+            throw new ValidationException("Invalid token details. Please verify or generate a new token by signing in again.");
         }
-        return user;
 
     }
     public void validateUserPortfolioDetails(User user, UserPortfolio userPortfolio){
@@ -52,16 +53,15 @@ public class UserValidator {
 
     }
 
-    private void validateViolations(UserPortfolio user){
+    private void validateViolations(UserPortfolio user) {
         Set<ConstraintViolation<UserPortfolio>> violations = validator.validate(user);
         if (!violations.isEmpty()) {
             for (ConstraintViolation<UserPortfolio> violation : violations) {
-                logger.error("Details of user-portfolio Validation Failure: "+violation.getPropertyPath() + ": " + violation.getMessage());
-                throw new ValidationException(violation.getPropertyPath() + ": " + violation.getMessage());
+                String message = violation.getPropertyPath() + ": " + violation.getMessage();
+                logger.error("Details of user-portfolio validation failure: " + message);
+                throw new ValidationException(message);
             }
-
         }
-
     }
     private void validateBankMfAndStockNames(UserPortfolio user){
 
@@ -116,29 +116,19 @@ public class UserValidator {
     }
     private void mapUserIdsToAccounts(Long userId, UserPortfolio userPortfolio){
         if (userPortfolio.getAccounts() != null) {
-            for (Account account : userPortfolio.getAccounts()) {
-                account.setUserId(userId);
-            }
+            userPortfolio.getAccounts().forEach(account -> account.setUserId(userId));
         }
         if (userPortfolio.getDeposits() != null) {
-            for (Deposit deposit : userPortfolio.getDeposits()) {
-                deposit.setUserId(userId);
-            }
+            userPortfolio.getDeposits().forEach(deposit -> deposit.setUserId(userId));
         }
         if (userPortfolio.getLoans() != null) {
-            for (Loan loan : userPortfolio.getLoans()) {
-                loan.setUserId(userId);
-            }
+            userPortfolio.getLoans().forEach(loan -> loan.setUserId(userId));
         }
         if (userPortfolio.getMutualFunds() != null) {
-            for (MutualFund mutualFund : userPortfolio.getMutualFunds()) {
-                mutualFund.setUserId(userId);
-            }
+            userPortfolio.getMutualFunds().forEach(mutualFund -> mutualFund.setUserId(userId));
         }
         if (userPortfolio.getStocks() != null) {
-            for (Stock stock : userPortfolio.getStocks()) {
-                stock.setUserId(userId);
-            }
+            userPortfolio.getStocks().forEach(stock -> stock.setUserId(userId));
         }
     }
 
