@@ -32,9 +32,8 @@ public class UserWealthDelete {
     @Autowired
     StockRepository stockRepository;
 
-    public void deleteAccount(Long userId,Account account){
-        validateAccountViolations(account);
-        Account record = accountRepository.findByAccountNumberAndUserIdAndDeletedFlag(account.getAccountNumber(),
+    public void deleteAccount(Long userId,String accountNumber){
+        Account record = accountRepository.findByAccountNumberAndUserIdAndDeletedFlag(accountNumber,
                 userId, false);
         if(record==null){
             throw new ValidationException("Account details not found in records");
@@ -43,9 +42,8 @@ public class UserWealthDelete {
             accountRepository.save(record);
         }
     }
-    public void deleteDeposit(Long userId,Deposit deposit){
-        validateDepositViolations(deposit);
-        Deposit record = depositRepository.findByAccountNumberAndUserIdAndDeletedFlag(deposit.getAccountNumber(),
+    public void deleteDeposit(Long userId,String accountNumber){
+        Deposit record = depositRepository.findByAccountNumberAndUserIdAndDeletedFlag(accountNumber,
                 userId, false);
         if(record==null){
             throw new ValidationException("Deposit details not found in records");
@@ -54,10 +52,9 @@ public class UserWealthDelete {
            depositRepository.save(record);
         }
     }
-    public void deleteLoan(Long userId,Loan loan){
+    public void deleteLoan(Long userId,String accountNumber){
 
-        validateLoanViolations(loan);
-        Loan record = loanRepository.findByAccountNumberAndUserIdAndDeletedFlag(loan.getAccountNumber(),
+        Loan record = loanRepository.findByAccountNumberAndUserIdAndDeletedFlag(accountNumber,
                 userId, false);
         if(record==null){
             throw new ValidationException("Loan details not found in records");
@@ -66,9 +63,8 @@ public class UserWealthDelete {
             loanRepository.save(record);
         }
     }
-    public void deleteMutualFund(Long userId,MutualFund mutualFund){
-        validateMutualFundViolations(mutualFund);
-        MutualFund record = mutualFundRepository.findByNameAndUserIdAndDeletedFlag(mutualFund.getName(),
+    public void deleteMutualFund(Long userId,String name){
+        MutualFund record = mutualFundRepository.findByNameAndUserIdAndDeletedFlag(name,
                 userId, false);
         if(record==null){
             throw new ValidationException("MutualFund details not found in records");
@@ -77,9 +73,8 @@ public class UserWealthDelete {
             mutualFundRepository.save(record);
         }
     }
-    public void deleteStock(Long userId,Stock stock){
-        validateStockViolations(stock);
-        Stock record = stockRepository.findByNameAndUserIdAndDeletedFlag(stock.getName(),
+    public void deleteStock(Long userId,String stockName){
+        Stock record = stockRepository.findByNameAndUserIdAndDeletedFlag(stockName,
                 userId, false);
         if(record==null){
             throw new ValidationException("Stock details not found in records");

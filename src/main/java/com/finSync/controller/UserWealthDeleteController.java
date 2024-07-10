@@ -14,11 +14,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserWealthDeleteController {
@@ -36,10 +32,10 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
     public ResponseEntity<String> deleteAccount(@RequestHeader("api-token") String userToken,
-                                                @RequestBody Account account){
+                                                @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteAccount(user.getUserId(), account);
+        userWealthDelete.deleteAccount(user.getUserId(), accountNumber);
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-deposit")
@@ -49,10 +45,10 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
     public ResponseEntity<String> deleteDeposit(@RequestHeader("api-token") String userToken,
-                                                @RequestBody Deposit deposit){
+                                                @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteDeposit(user.getUserId(), deposit);
+        userWealthDelete.deleteDeposit(user.getUserId(), accountNumber);
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-loan")
@@ -62,10 +58,10 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
     public ResponseEntity<String> deleteLoan(@RequestHeader("api-token") String userToken,
-                                             @RequestBody Loan loan){
+                                             @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteLoan(user.getUserId(), loan);
+        userWealthDelete.deleteLoan(user.getUserId(), accountNumber);
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-mutualFund")
@@ -75,10 +71,10 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
     public ResponseEntity<String> deleteMutualFund(@RequestHeader("api-token") String userToken,
-                                                   @RequestBody MutualFund mutualFund){
+                                                   @RequestParam String mutualFundName){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteMutualFund(user.getUserId(), mutualFund);
+        userWealthDelete.deleteMutualFund(user.getUserId(), mutualFundName);
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-stocks")
@@ -88,10 +84,10 @@ public class UserWealthDeleteController {
     @ApiResponse(responseCode = "400", description = "Given Record Not Found")
     @ApiResponse(responseCode = "500",description = "Internal Sever Error")
     public ResponseEntity<String> deleteStocks(@RequestHeader("api-token") String userToken,
-                                               @RequestBody Stock stock){
+                                               @RequestParam String stockName){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteStock(user.getUserId(), stock);
+        userWealthDelete.deleteStock(user.getUserId(), stockName);
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @ExceptionHandler(ValidationException.class)
