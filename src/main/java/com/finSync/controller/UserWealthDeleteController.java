@@ -35,7 +35,7 @@ public class UserWealthDeleteController {
                                                 @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteAccount(user.getUserId(), accountNumber);
+        userWealthDelete.deleteAccount(user.getUserId(), accountNumber.replace("\"",""));
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-deposit")
@@ -48,7 +48,7 @@ public class UserWealthDeleteController {
                                                 @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteDeposit(user.getUserId(), accountNumber);
+        userWealthDelete.deleteDeposit(user.getUserId(), accountNumber.replace("\"",""));
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-loan")
@@ -61,7 +61,7 @@ public class UserWealthDeleteController {
                                              @RequestParam String accountNumber){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteLoan(user.getUserId(), accountNumber);
+        userWealthDelete.deleteLoan(user.getUserId(), accountNumber.replace("\"",""));
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-mutualFund")
@@ -74,7 +74,7 @@ public class UserWealthDeleteController {
                                                    @RequestParam String mutualFundName){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteMutualFund(user.getUserId(), mutualFundName);
+        userWealthDelete.deleteMutualFund(user.getUserId(), mutualFundName.replace("\"",""));
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @DeleteMapping("/delete-stocks")
@@ -87,7 +87,7 @@ public class UserWealthDeleteController {
                                                @RequestParam String stockName){
         String token = userToken.replace("Bearer ", "");
         User user = userPortfolioValidator.validatedTokenAndGetUserDetails(token);
-        userWealthDelete.deleteStock(user.getUserId(), stockName);
+        userWealthDelete.deleteStock(user.getUserId(), stockName.replace("\"",""));
         return new ResponseEntity<>("given record successfully removed", HttpStatus.OK);
     }
     @ExceptionHandler(ValidationException.class)
